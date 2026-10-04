@@ -1,0 +1,28 @@
+# FlowPaint core dependencies.
+# Pin/upgrade versions to match your CUDA / diffusers setup as needed.
+
+# --- numerics & I/O ---
+numpy>=1.24
+pandas>=2.0,<3   # repair passes rely on pandas 2 (no copy-on-write)
+pillow>=10.0
+pyyaml>=6.0
+tqdm>=4.65
+
+# --- diffusion (Generative Editor) ---
+torch>=2.1
+diffusers>=0.27
+transformers>=4.38
+accelerate>=0.27
+datasets>=2.16      # fine_tune.py converts the JSONL into a local HF dataset
+# Optional but used in the paper's training config:
+bitsandbytes>=0.43   # 8-bit Adam
+# xformers            # memory-efficient attention (optional; install to match your torch/CUDA)
+
+# --- metrics (optional; enables PSNR/SSIM in inference dataset mode) ---
+scikit-image>=0.22
+
+# --- packet reconstruction (Protocol Decoder) ---
+scapy>=2.5
+
+# External (not pip): the `nprint` v1.2.1 CLI (see scripts/install_nprint.sh),
+# and `tcpreplay` if you want to replay the rebuilt PCAPs.

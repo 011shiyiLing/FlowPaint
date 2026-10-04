@@ -1,0 +1,1 @@
+{"original_image": "fine_tune_pairs/sample_original.png", "edited_image": "fine_tune_pairs/sample_edited.png", "edit_prompt": "Transform the HTTPS network traffic visualization to bypass the GFW", "input_caption": "HTTPS network traffic visualization", "output_caption": "HTTPS network traffic visualization bypass GFW."}

@@ -1,0 +1,38 @@
+# Model weights / checkpoints (NOT distributed — train your own or fetch separately)
+models/
+checkpoint-*/
+*.safetensors
+*.ckpt
+*.bin
+*.pt
+*.pth
+
+# Third-party builds
+third_party/
+
+# Working / job outputs
+jobs/
+validation_results/
+logs/
+runs/
+wandb/
+
+# Data (bring your own PCAPs / datasets)
+*.pcap
+*.pcapng
+dataset/**/*.png
+dataset/**/*.jsonl
+!sample_data/**
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.env
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/

@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+message: "If you use FlowPaint, please cite the paper."
+title: "FlowPaint"
+repository-code: "https://github.com/011shiyiLing/FlowPaint"
+license: MIT
+authors:
+  - family-names: Ling
+    given-names: Shiyi
+  - family-names: Gan
+    given-names: Yuhang
+  - family-names: Qian
+    given-names: Chen
+preferred-citation:
+  type: article
+  title: "One-Prompt Censorship Evasion via Generative Diffusion Models"
+  authors:
+    - family-names: Ling
+      given-names: Shiyi
+    - family-names: Gan
+      given-names: Yuhang
+    - family-names: Qian
+      given-names: Chen
+  journal: "Proceedings of the ACM on Networking"
+  volume: 4
+  issue: "CoNEXT4"
+  month: 12
+  year: 2026
+  doi: "10.1145/3856970"

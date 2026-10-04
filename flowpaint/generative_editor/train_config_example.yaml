@@ -1,0 +1,53 @@
+# FlowPaint Generative Editor fine-tuning config.
+#
+# Values below mirror the paper (Sec. 4, "Training Configuration"):
+#   * backbone: SDXL InstructPix2Pix (diffusers/sdxl-instructpix2pix-768);
+#   * only the U-Net is trained; the VAE and text encoders stay frozen
+#     (the diffusers example script freezes them by default);
+#   * 10 epochs, lr 1e-5 (constant schedule, 500 warmup steps),
+#     global batch size 4 with gradient accumulation 4
+#     (train_batch_size 1 x gradient_accumulation_steps 4 on one GPU),
+#     8-bit Adam, BF16, 0.1 conditioning dropout.
+#
+# Point `data.dataset_path` at the JSONL produced by
+# dataset/prepare_instruct_dataset.py. Image paths in the JSONL are resolved
+# relative to `data.image_root` (default: the JSONL's directory). The paper's
+# consolidated dataset has 6,712 paired samples.
+
+model:
+  pretrained_model_name_or_path: diffusers/sdxl-instructpix2pix-768
+  revision: main
+  use_ema: false
+  enable_xformers_memory_efficient_attention: false
+
+data:
+  dataset_path: ./sample_data/fine_tune_pairs/train_sample.jsonl
+  image_root: ./sample_data
+  train_batch_size: 1
+  # max_train_samples: 100        # optional, truncate the dataset for debugging
+  resolution: 768
+  dataloader_num_workers: 4
+  original_image_column: original_image
+  edited_image_column: edited_image
+  edit_prompt_column: edit_prompt
+  center_crop: false
+  random_flip: false
+
+training:
+  num_train_epochs: 10
+  gradient_accumulation_steps: 4
+  gradient_checkpointing: true
+  learning_rate: 1.0e-5
+  lr_scheduler: constant_with_warmup
+  lr_warmup_steps: 500
+  conditioning_dropout_prob: 0.1
+  mixed_precision: bf16
+  use_8bit_adam: true
+  allow_tf32: true
+  max_grad_norm: 1.0
+  checkpointing_steps: 500
+  report_to: tensorboard
+
+paths:
+  output_dir: ./models
+  logging_subdir: logs
