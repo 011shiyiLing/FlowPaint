@@ -60,6 +60,19 @@ bash scripts/install_nprint.sh
 export NPRINT_BIN="$(pwd)/third_party/nprint-1.2.1/nprint"
 ```
 
+Linux build prerequisites for nPrint (Debian/Ubuntu): `sudo apt-get install
+build-essential autoconf automake libtool pkg-config libpcap-dev`.
+
+On macOS, install the build tools and the GNU `argp` header that nPrint needs (it
+is not part of the macOS SDK): `brew install autoconf automake libtool pkg-config
+libpcap argp-standalone`. If the build still reports `argp.h file not found`, point
+the compiler at the header before rerunning `scripts/install_nprint.sh`:
+
+```bash
+export CPPFLAGS="-I$(brew --prefix argp-standalone)/include -I$(brew --prefix libpcap)/include"
+export LDFLAGS="-L$(brew --prefix argp-standalone)/lib -largp -L$(brew --prefix libpcap)/lib"
+```
+
 A CUDA GPU is required to fine-tune the editor and recommended for inference. The
 paper used an NVIDIA RTX 5090 (32 GB).
 
