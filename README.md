@@ -29,7 +29,7 @@ corresponds to a section of the paper.
 │   └── protocol_decoder/    # Flow image -> nPrint -> repaired, replayable PCAP
 ├── dataset/                 # Training set construction (Geneva targets, instruction JSONL)
 ├── scripts/                 # End-to-end pipeline and nPrint installer
-├── sample_data/             # One example training pair
+├── sample_data/             # A sample benign flow and one example training pair
 ├── requirements.txt
 ├── CITATION.cff
 └── LICENSE
@@ -69,14 +69,19 @@ Repaint one PCAP end to end:
 
 ```bash
 python scripts/run_pipeline.py \
-  --pcap flow.pcap \
+  --pcap sample_data/sample_flow.pcap \
   --prompt "Transform the HTTPS network traffic visualization to bypass the GFW" \
   --checkpoint /path/to/your/checkpoint \
   --work-root ./jobs
 ```
 
-Without `--checkpoint` the pipeline runs as a dry run. The flow image is passed
-through unedited, so the encoder and the decoder can be tested without a GPU. The
+`sample_data/sample_flow.pcap` is a benign flow from the public
+[Stratosphere IPS normal captures](https://www.stratosphereips.org/datasets-normal);
+any other PCAP works the same way. Without `--checkpoint` the pipeline runs as a dry
+run. The flow image is passed through unedited, so the encoder and the decoder can be
+tested without a GPU. To exercise the generative stage without training, pass the
+public backbone `--checkpoint diffusers/sdxl-instructpix2pix-768`; a fine-tuned
+checkpoint reproduces the paper's editing behavior. The
 prompts used in the paper are
 
 - `Transform the HTTPS network traffic visualization to bypass the GFW`
